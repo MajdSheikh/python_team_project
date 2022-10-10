@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a new car</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+</head>
+
+<body>
+    <header class="font-monospace border-bottom">
+        <div class="text-center bg-dark">
+            <h1 class="text-light">Carchive®</h1>
+        </div>
+        <div class="text-center row align-items-center my-2">
+            <div class="col"></div>
+            <div class="col font-weight-bold">Add a New Car</div>
+            <div class="col">
+                <a href="/dashboard" class="btn btn-primary btn-sm">Dashboard</a>
+                <a href="/dashboard" class="btn btn-danger btn-sm">logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-5 row">
+        <div class="my-5 col">
+            <form action="add_new_car/" method="POST" class="">
+                <!-- {% csrf_token %} -->
+                <div>
+                    <label for="brand" class="form-label">Brand</label>
+                    <select id="brand" name="brand" class="form-control">
+                        <option vlaue="Audi">Audi</option>
+                    </select>
+                </div>
+                <div class="my-3">
+                    <label for="model" class="form-label">Model</label>
+                    <select id="model" name="model" class="form-control">
+                        <option vlaue="A-Class">A-Class</option>
+                    </select>
+                </div>
+
+                <div class="my-3">
+                    <label for="date" class="form-label">Production Date</label>
+                    <input type="date" value="date" name="date" class="form-control" />
+                </div>
+                <div class="my-3">
+                    <label for="color" class="form-label">Color</label>
+                    <select id="color" name="color" class="form-control">
+                        <option vlaue="red">Red</option>
+                        <option vlaue="black">Black</option>
+                        <option vlaue="white">White</option>
+                        <option vlaue="blue">Blue</option>
+                    </select>
+                </div>
+                <div class="my-3">
+                    <label for="vin" class="form-label">VIN</label>
+                    <input type="text" name="vin" class="form-control" />
+                </div>
+                <div class="my-3">
+                    <button type="submit" class="btn btn-primary my-2">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </main>
+</body>
+
+</html>
