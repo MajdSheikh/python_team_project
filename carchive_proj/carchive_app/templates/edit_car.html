@@ -17,7 +17,7 @@
     </div>
     <div class="text-center row align-items-center my-2">
       <div class="col"></div>
-      <div class="col font-weight-bold">Add a New Car</div>
+      <div class="col font-weight-bold">Edit this Car</div>
       <div class="col">
         <a href="/dashboard" class="btn btn-primary btn-sm">Dashboard</a>
         <a href="/dashboard" class="btn btn-danger btn-sm">logout</a>
@@ -27,45 +27,53 @@
 
   <main class="mx-5 row">
     <div class="my-5 col">
-      <form action="add_new_car/" method="POST" class="">
+      <form action="edit_car/" method="POST" class="">
         <!-- {% csrf_token %} -->
         <div>
           <label for="brand" class="form-label">Brand</label>
           <select id="brand" name="brand" class="form-control">
-            <option vlaue="Audi">Audi</option>
+            <option vlaue="Audi">{{car.brand}}</option>
           </select>
         </div>
         <div class="my-3">
           <label for="model" class="form-label">Model</label>
           <select id="model" name="model" class="form-control">
-            <option vlaue="A-Class">A-Class</option>
+            <option vlaue="A-Class">{{car.model}}</option>
           </select>
         </div>
 
         <div class="my-3">
           <label for="date" class="form-label">Production Date</label>
-          <input type="date" value="date" name="date" class="form-control" />
+          <input type="date" value="{{car.date}}" name="date" class="form-control" />
         </div>
         <div class="my-3">
           <label for="color" class="form-label">Color</label>
           <select id="color" name="color" class="form-control">
-            <option vlaue="red">Red</option>
-            <option vlaue="black">Black</option>
-            <option vlaue="white">White</option>
-            <option vlaue="blue">Blue</option>
+            <option vlaue="red">{{car.color}}</option>
           </select>
         </div>
         <div class="my-3">
           <label for="vin" class="form-label">VIN</label>
-          <input type="text" name="vin" class="form-control" />
+          <input type="text" name="vin" value="{{car.vin}}" class="form-control" />
         </div>
         <div class="my-3">
-          <button type="submit" class="btn btn-primary my-2">Add</button>
+          <button type="submit" class="btn btn-primary my-2">Update</button>
         </div>
       </form>
     </div>
     <div class="col"></div>
   </main>
+
+
+  <div class="text-center row align-items-center my-2">
+    <div class="col"></div>
+    <div class="col font-weight-bold"></div>
+    <div class="col">
+      <a href="/show_car_details" class="btn btn-info btn-sm">Go to show</a>
+
+    </div>
+  </div>
+
 </body>
 
 </html>
