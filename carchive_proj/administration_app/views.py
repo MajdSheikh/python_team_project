@@ -30,7 +30,7 @@ def login(request):
                 request.session['id'] = admin.id
                 return redirect('/admin/dashboard/')
             else:
-                return redirect('/admin/')
+                return redirect('/admin/dashboard/')
     
     
 def logout(request):
@@ -132,3 +132,10 @@ def display_showroom(request, id):
         "this_showroom":Showroom.objects.get(id=id),
     }
     return render(request,"display_showroom.html", context)
+
+def delete_showroom(request, id):
+    if not is_logged_in(request):
+        return redirect('/admin/')
+    this_showroom = Showroom.objects.get(id=id)
+    this_showroom.delete()
+    return redirect('/admin/dashboard/')

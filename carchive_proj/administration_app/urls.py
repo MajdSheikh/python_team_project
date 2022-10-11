@@ -13,4 +13,5 @@ urlpatterns=[
     path('add_items/',views.add_items),
     path('process_items/',views.process_items),
     path('display_showroom/<id>/', views.display_showroom),
+    path('delete_showroom/<id>/', views.delete_showroom),
 ]
