@@ -26,8 +26,8 @@
   </header>
   <main class="mx-5 row">
     <div class="my-5 col">
-      <form action="add_showroom/" method="POST" class="">
-        <!-- {% csrf_token %} -->
+      <form action="/admin/create_showroom/" method="POST">
+        {% csrf_token %}
         <div>
           <label class="form-label">Name</label>
           <input type="text" name="name" class="form-control" />
@@ -41,19 +41,16 @@
           <input type="password" name="password" class="form-control" />
         </div>
         <div class="my-3">
-          <label class="form-label">license number</label>
+          <label class="form-label">License number</label>
           <input type="text" name="license_number" class="form-control" />
         </div>
         <div class="my-3">
-          <label class="form-label">payment method</label>
-          <select name="payment_method">
-            <option>not paid</option>
-            <option>cash</option>
-            <option>cheques</option>
+          <label class="form-label">Payment</label>
+          <select name="payment">
+            <option value="not paid">not paid</option>
+            <option value="cash">cash</option>
+            <option value="cheques">cheques</option>
           </select>
-          <div class="my-3 col">
-            <a href="/upload id document">identification document</a>
-          </div>
           <div class="my-5 col">
             <button class="btn btn-primary my-2">Add</button>
           </div>

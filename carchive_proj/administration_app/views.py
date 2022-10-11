@@ -54,6 +54,22 @@ def add_showroom(request):
         return redirect('/admin/')
     return render(request,'add_showroom.html')
 
+def create_showroom(request):
+    if not is_logged_in(request):
+        return redirect('/admin/')
+    if request.method == 'POST':
+        admin=Admin.objects.get(id=request.session['id'])
+        name=request.POST['name']
+        email=request.POST['email']
+        password=str(request.POST['password'])
+        license_number=request.POST['license_number']
+        payment=request.POST['payment']
+        pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        # pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        Showroom.objects.create(name=name,email=email,password=pw_hash
+                                ,license_number=license_number,payment=payment,created_by=admin)
+
+    return redirect('/admin/')
 
 
 def edit_showroom(request,id):

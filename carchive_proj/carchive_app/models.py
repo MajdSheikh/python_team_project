@@ -6,7 +6,8 @@ class Showroom(models.Model):
     created_by=models.ForeignKey(Admin, related_name='showrooms',on_delete=models.CASCADE)
     name=models.CharField(max_length=45)
     email=models.CharField(max_length=45)
-    password=models.CharField(max_length=45)
+    password=models.CharField(max_length=255)
+    payment=models.CharField(max_length=45)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     
