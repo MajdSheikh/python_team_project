@@ -33,12 +33,15 @@
                     <th class="table-dark">Model</th>
                     <th class="table-dark">Actions</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td><a href="/edit_car/id/">edit</a> | <a href="">delete</a></td>
-                </tr>
+                {% for car in cars %}
+            <tr>
+                <td>{{ car.id }}</td>
+                <td>{{ car.vin}}</td>
+                <td>{{ car.model.brand.name}} {{ car.model.name }}</td>
+                <td><a href="/edit_car/{{ car.id }}/">edit</a> | <a href="/delete_car/{{ car.id }}/">delete</a></td>
+            </tr>
+                {% endfor %}
+          </tbody>
             </table>
         </div>
 
