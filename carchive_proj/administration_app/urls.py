@@ -12,4 +12,5 @@ urlpatterns=[
     path('update_showroom/<id>/', views.update_showroom),
     path('add_items/',views.add_items),
     path('process_items/',views.process_items),
+    path('display_showroom/<id>/', views.display_showroom),
 ]
