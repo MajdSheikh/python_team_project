@@ -18,13 +18,15 @@ def logging(request):
         except:
             messages.error(request,'Account Does Not Exist')
             print("user does not exist")
-            return redirect('/admin/')
+            return redirect('/')
         else:
             if bcrypt.checkpw(str(password).encode(), str(showroom.password).encode()):
                 request.session['showroom_id'] = showroom.id
-                return redirect('/admin/dashboard/')
+                return redirect('/dashboard/')
             else:
-                return redirect('/admin/')
+                return redirect('/')
+    else:
+        return ('/')
 
 def showroom_logged_in(request):
     if not 'showroom_id' in request.session:
@@ -33,16 +35,28 @@ def showroom_logged_in(request):
         return True
 
 def cars_dashboard(request):
+    if not showroom_logged_in(request):
+        return redirect('/')
     context={
         "cars":Car.objects.all()
     }
     return render(request,'cars_dashboard.html',context)
 
 def add_new_car(request):
-    return render(request,'add_new_car.html')
+    if not showroom_logged_in(request):
+        return redirect('/')
+    context={
+        'brands':Brand.objects.all(),
+        'models':BrandModel.objects.all(),
+    }
+    return render(request,'add_new_car.html',context)
 
 def edit_car(request,id):
+    if not showroom_logged_in(request):
+        return redirect('/')
     return render(request,'edit_car.html')
 
 def show_car(request,id):
+    if not showroom_logged_in(request):
+        return redirect('/')
     return render(request,'show_car.html')

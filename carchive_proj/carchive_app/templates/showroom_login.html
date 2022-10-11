@@ -21,7 +21,7 @@
     </header>
     <main>
         <div class="mx-5 my-3">
-            <form action="/logging/">
+            <form action="/logging/" method="POST">
                 {% csrf_token %}
                 <div class="my-2">
                     <label for="license" class="form-label"> License No.<span style="color:red;">*</span></label>

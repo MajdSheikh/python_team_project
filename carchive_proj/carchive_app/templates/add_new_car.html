@@ -28,17 +28,19 @@
   <main class="mx-5 row">
     <div class="my-5 col">
       <form action="add_new_car/" method="POST" class="">
-        <!-- {% csrf_token %} -->
+        {% csrf_token %}
         <div>
           <label for="brand" class="form-label">Brand</label>
-          <select id="brand" name="brand" class="form-control">
-            <option vlaue="Audi">Audi</option>
+          <select id="brand" name="brand" class="form-control" onchange="populate(this,'model')">
+            {% for brand in brands %}
+            <option vlaue="{{brand.id}}">{{brand.name}}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="my-3">
           <label for="model" class="form-label">Model</label>
           <select id="model" name="model" class="form-control">
-            <option vlaue="A-Class">A-Class</option>
+            <option vlaue=""></option>
           </select>
         </div>
 
