@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from administration_app.models import Admin
+from carchive_app.models import *
 from django.contrib import messages
 import bcrypt
 
@@ -32,7 +33,10 @@ def logout(request):
     return redirect('/admin/')
 
 def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
+    context={
+        'showrooms':Showroom.objects.all()
+    }
+    return render(request,'admin_dashboard.html',context)
 
 def add_showroom(request):
     return render(request,'add_showroom.html')

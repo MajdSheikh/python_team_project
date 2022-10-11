@@ -39,14 +39,16 @@
                     <th>List of showrooms</th>
                     <th>Action</th>
                 </tr>
+                {% for showroom in showrooms %}
                 <tr class="">
-                    <td>showroom name</td>
+                    <td>{{showroom.name}}</td>
                     <td>
-                        <a href="">Show</a>
-
-                        <a href="/admin/edit_showroom/id/">Edit</a>
+                        <a href="/admin/show_showroom/{{showroom.id}}">Show</a>
+                        <span>|</span>
+                        <a href="/admin/edit_showroom/{{showroom.id}}/">Edit</a>
                     </td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
 
