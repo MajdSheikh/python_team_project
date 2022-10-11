@@ -79,9 +79,7 @@ def update_showroom(request, id):
     this_showroom.save()
     return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
 
-    if not is_logged_in(request):
-        return redirect('/admin/')
-    return render(request,'edit_showroom.html')
+
 
 def add_items(request):
     if not is_logged_in(request):
