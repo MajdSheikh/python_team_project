@@ -32,17 +32,41 @@ def logout(request):
         del request.session['id']
     return redirect('/admin/')
 
+
+
 def admin_dashboard(request):
     context={
         'showrooms':Showroom.objects.all()
     }
     return render(request,'admin_dashboard.html',context)
 
+
 def add_showroom(request):
     return render(request,'add_showroom.html')
 
+
+
 def edit_showroom(request,id):
-    return render(request,'edit_showroom.html')
+    context={
+        "this_showroom":Showroom.objects.get(id=id),
+    }
+    return render(request,'edit_showroom.html', context)
+
+
+def update_showroom(request, id):
+
+    this_showroom= Showroom.objects.get(id=id)
+    this_showroom.license_number=request.POST['name']
+    this_showroom.name=request.POST['name']
+    this_showroom.email=request.POST['email']
+    password=request.POST['password']
+    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    this_showroom.password=pw_hash
+    
+    this_showroom.save()
+    return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
+
+
 
 def add_items(request):
     return render(request,'add_items.html')

@@ -26,40 +26,40 @@
   </header>
   <main class="mx-5 row">
     <div class="my-5 col">
-      <form action="add_new_car/" method="POST" class="">
-        <!-- {% csrf_token %} -->
+      <form action="/admin/update_showroom/{{this_showroom.id}}/" method="POST" class="">
+        {% csrf_token %}
         <div>
           <label class="form-label">Name</label>
-          <input type="text" name="name" class="form-control" />
+          <input type="text" name="name" value="{{this_showroom.name}}" class="form-control" />
         </div>
         <div class="my-3">
           <label class="form-label">Email</label>
-          <input type="text" name="email" class="form-control" />
+          <input type="text" name="email" value="{{this_showroom.email}}" class="form-control" />
         </div>
         <div class="my-3">
           <label class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" />
+          <input type="password" name="password" value="{{this_showroom.password}}" class="form-control" />
         </div>
         <div class="my-3">
           <label class="form-label">license number</label>
-          <input type="text" name="license_number" class="form-control" />
+          <input type="text" name="license_number" value="{{this_showroom.license_number}}" class="form-control" />
         </div>
         <div class="my-3">
           <label class="form-label">payment method</label>
           <select name="payment_method">
-            <option>not paid</option>
-            <option>cash</option>
-            <option>cheques</option>
+            <option value="not_paid">not paid</option>
+            <option value="cash">cash</option>
+            <option value="cheques">cheques</option>
           </select>
           <div class="my-3 col">
             <a href="/upload id document">identification document</a>
           </div>
           <div class="my-5 col">
             <button class="btn btn-primary my-2">Edit</button>
-            <button class="btn btn-primary my-2">Delete</button>
           </div>
         </div>
       </form>
+      <button class="btn btn-primary my-2">Delete</button>
     </div>
     <div class="col"></div>
   </main>
