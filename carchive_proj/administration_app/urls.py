@@ -9,4 +9,5 @@ urlpatterns=[
     path('add_showroom/',views.add_showroom),
     path('edit_showroom/<id>/',views.edit_showroom),
     path('add_items/',views.add_items),
+    path('process_items/',views.process_items),
 ]

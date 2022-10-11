@@ -5,6 +5,12 @@ from django.contrib import messages
 import bcrypt
 
 # Create your views here.
+def is_logged_in(request):
+    if 'id' in request.session:
+        return True
+    else:
+        return False
+
 def admins_login(request):
     return render(request,'admins_login.html')
 
@@ -33,16 +39,46 @@ def logout(request):
     return redirect('/admin/')
 
 def admin_dashboard(request):
+    if not is_logged_in(request):
+        return redirect('/admin/')
     context={
         'showrooms':Showroom.objects.all()
     }
     return render(request,'admin_dashboard.html',context)
 
 def add_showroom(request):
+    if not is_logged_in(request):
+        return redirect('/admin/')
     return render(request,'add_showroom.html')
 
 def edit_showroom(request,id):
+    if not is_logged_in(request):
+        return redirect('/admin/')
     return render(request,'edit_showroom.html')
 
 def add_items(request):
-    return render(request,'add_items.html')
+    if not is_logged_in(request):
+        return redirect('/admin/')
+    context={
+        'brands':Brand.objects.all()
+    }
+    return render(request,'add_items.html',context)
+
+def process_items(request):
+    if not is_logged_in(request):
+        return redirect('/admin/')
+    if request.method == 'POST':
+        if request.POST['source']=='brand':
+            brand_name=request.POST['brand']
+            Brand.objects.create(name=brand_name)
+        elif request.POST['source']=='model':
+            brand=Brand.objects.get(id=request.POST['brand'])
+            new_model=request.POST['model']
+            BrandModel.objects.create(brand=brand,name=new_model)
+        elif request.POST['source']=='doc_type':
+            doc_type=request.POST['doc_type']
+            DocumentType.objects.create(type=doc_type)
+        return redirect('/admin/add_items/')
+
+    else:
+        return redirect('/admin/')
