@@ -12,6 +12,8 @@ def is_logged_in(request):
         return False
 
 def admins_login(request):
+    if is_logged_in(request):
+        return redirect('/admin/dashboard/')
     return render(request,'admins_login.html')
 
 def login(request):
@@ -68,7 +70,7 @@ def create_showroom(request):
         # pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
         Showroom.objects.create(name=name,email=email,password=pw_hash
                                 ,license_number=license_number,payment=payment,created_by=admin)
-
+        return redirect('/admin/dashboard/')
     return redirect('/admin/')
 
 

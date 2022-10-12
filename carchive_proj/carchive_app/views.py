@@ -28,6 +28,11 @@ def logging(request):
     else:
         return ('/')
 
+def showroom_logout(request):
+    if 'showroom_id' in request.session:
+        del request.session['showroom_id']
+    return redirect('/')
+
 def showroom_logged_in(request):
     if not 'showroom_id' in request.session:
         return False
