@@ -42,3 +42,7 @@ class Document(models.Model):
     doc=models.FileField(upload_to='documents/%Y/%m/%d/')
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+
+    def delete(self, *args, **kwargs):
+        self.doc.delete()
+        super().delete(*args,**kwargs)

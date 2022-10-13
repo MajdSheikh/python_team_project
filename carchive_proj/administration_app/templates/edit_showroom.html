@@ -26,7 +26,7 @@
   </header>
   <main class="mx-5 row">
     <div class="my-5 col">
-      <form action="/admin/update_showroom/{{this_showroom.id}}/" method="POST" class="">
+      <form action="/admin/update_showroom/{{this_showroom.id}}/" method="POST" class="d-inline">
         {% csrf_token %}
         <div>
           <label class="form-label">Name</label>
@@ -44,22 +44,21 @@
           <label class="form-label">license number</label>
           <input type="text" name="license_number" value="{{this_showroom.license_number}}" class="form-control" />
         </div>
-        <div class="my-3">
+        <div class="my-3 d-inline">
           <label class="form-label">Payment</label>
           <select name="payment_method">
             <option value="not paid">not paid</option>
             <option value="cash">cash</option>
             <option value="cheque">cheque</option>
           </select>
-          <div class="my-3 col">
-            <a href="/upload id document">identification document</a>
-          </div>
-          <div class="my-5 col">
-            <button class="btn btn-primary my-2">Edit</button>
+          <div class="my-5 col d-inline">
+            <button class="btn btn-primary btn-lg my-2 d-inline mx-2">Edit</button>
           </div>
         </div>
       </form>
-      <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-danger btn-sm">Delete</a>
+      <div class="d-inline">
+        <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-danger btn-sm d-inline">Delete</a>
+      </div>
     </div>
     <div class="col"></div>
   </main>

@@ -4,6 +4,7 @@ from django.contrib import messages
 import bcrypt
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
+import os
 
 
 # Create your views here.
@@ -42,6 +43,33 @@ def logging(request):
                 return redirect('/')
     else:
         return ('/')
+
+def change_password(request):
+    if not showroom_logged_in(request):
+        return redirect('/')
+    return render(request,'change_password.html')
+
+def update_password(request):
+    if not showroom_logged_in(request):
+        return redirect('/')
+    logged_showroom=Showroom.objects.get(id=request.session['showroom_id'])
+    old_password=str(request.POST['old_password'])
+    new_password=str(request.POST['new_password'])
+    conf_new_password=request.POST['conf_new_password']
+    if bcrypt.checkpw(old_password.encode(),str(logged_showroom.password).encode()):
+        if new_password == conf_new_password:
+            logged_showroom.password=bcrypt.hashpw(new_password.encode(),bcrypt.gensalt()).decode()
+            logged_showroom.save()
+            print('password updated')
+            return redirect ('/dashboard/')
+        else:
+            print('password confirmation does not match')
+            messages.error(request,'password confirmation does not match')
+            return redirect('/change_password/')
+    else:
+        print('Wrong old password')
+        messages.error(request,'Wrong old password')
+        return redirect('/change_password/')
 
 def cars_dashboard(request):
     if not showroom_logged_in(request):
@@ -139,3 +167,20 @@ def upload_doc(request,id):
 
 
     return redirect('/show_car/'+str(id)+'/')
+
+def delete_document(request,id):
+    tb_deleted_doc=Document.objects.get(id=id)
+    car_id=tb_deleted_doc.car.id
+    tb_deleted_doc.delete()
+    print('deleted file'+'/media/'+str(tb_deleted_doc.doc))
+    return redirect('/show_car/'+str(car_id)+'/')
+
+
+
+def _delete_file(path):
+    """ Deletes file from filesystem. """
+    if os.path.isfile(path):
+        print('inside the function deleted file '+path)
+        os.remove(path)
+    else:
+        print ('file '+path+' not fount ')
