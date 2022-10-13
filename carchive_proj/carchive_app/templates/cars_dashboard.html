@@ -38,7 +38,7 @@
                 <td>{{ car.id }}</td>
                 <td>{{ car.vin}}</td>
                 <td>{{ car.model.brand.name}} {{ car.model.name }}</td>
-                <td><a href="/edit_car/{{ car.id }}/">edit</a> | <a href="/delete_car/{{ car.id }}/">delete</a></td>
+                <td><a href="/show_car/{{ car.id }}/">show</a> | <a href="/edit_car/{{ car.id }}/">edit</a> | <a href="/delete_car/{{ car.id }}/">delete</a></td>
             </tr>
                 {% endfor %}
           </tbody>

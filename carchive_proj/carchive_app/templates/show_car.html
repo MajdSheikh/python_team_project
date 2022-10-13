@@ -17,7 +17,7 @@
         </div>
         <div class="text-center row align-items-center my-2">
             <div class="col"></div>
-            <div class="col font-weight-bold">Add a New Car</div>
+            <div class="col font-weight-bold">{{car.model.brand.name}} {{car.model.name}}</div>
             <div class="col">
                 <a href="/dashboard" class="btn btn-primary btn-sm">Dashboard</a>
                 <a href="/logout/" class="btn btn-danger btn-sm">logout</a>
@@ -28,52 +28,52 @@
     <main class="mx-5 row">
         <div class="my-5 col">
             <div>
-                <p>Brand: <span>Audi</span></p>
+                <p>Brand: <span>{{car.model.brand.name}}</span></p>
             </div>
             <div class="my-3">
-                <p>Model: <span>A4</span></p>
+                <p>Model: <span>{{car.model.name}}</span></p>
             </div>
 
             <div class="my-3">
-                <p>Production date: <span>2020-11-25</span></p>
+                <p>Production date: <span>{{car.prod_date}}</span></p>
             </div>
             <div class="my-3">
-                <p>Color: <span>Red</span></p>
+                <p>Color: <span>{{car.color}}</span></p>
             </div>
             <div class="my-3">
-                <p>VIN: <span>AUGZZZW2315D12345</span></p>
+                <p>VIN: <span>{{car.vin}}</span></p>
             </div>
             <div class="my-3">
             </div>
         </div>
         <div class="my-5 col">
             <div>
-                <h3>Documents</h3>
+                <h3>List of Documents</h3>
                 <ul>
+                    {% for doc in car.documents.all %}
                     <li class="my-3">
-                        <p>Registration papers</p>
-                        <a href="">Download</a>
+                        <p>{{doc.type.type}}</p>
+                        <p>{{doc.updated_at}}</p>
+                        <a href="/media/{{doc.doc}}" download>Download</a>
                         <span>|</span>
                         <a href="">Delete</a>
                     </li>
-                    <li class="my-5">
-                        <p>Customs papers</p>
-                        <a href="">Download</a>
-                        <span>|</span>
-                        <a href="">Delete</a>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div>
                     <h3>Add a new Document</h3>
-                    <form action="">
+                    <form action="/upload_doc/{{car.id}}/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div>
                             <label for="doc-type" class="my-3">Document Type:</label>
                             <select name="doc_type" id="doc_type">
-                                <option value="permit">Permit</option>
+                                {% for doc_type in doc_types %}
+                                <option value="{{doc_type.id}}">{{doc_type.type}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div>
-                            <input type="file" name="document_upload" id="document_upload">
+                            <input type="file" name="document" id="document">
                         </div>
                         <input type="submit" value="Upload" class="btn btn-primary my-3">
                     </form>
