@@ -47,7 +47,10 @@ def logging(request):
 def change_password(request):
     if not showroom_logged_in(request):
         return redirect('/')
-    return render(request,'change_password.html')
+    context={
+        'showroom':Showroom.objects.get(id=request.session['showroom_id']),
+    }
+    return render(request,'change_password.html',context)
 
 def update_password(request):
     if not showroom_logged_in(request):
@@ -75,7 +78,8 @@ def cars_dashboard(request):
     if not showroom_logged_in(request):
         return redirect('/')
     context={
-        "cars":Showroom.objects.get(id=request.session['showroom_id']).cars.all()
+        "cars":Showroom.objects.get(id=request.session['showroom_id']).cars.all(),
+        'showroom':Showroom.objects.get(id=request.session['showroom_id']),
     }
     return render(request,'cars_dashboard.html',context)
 
@@ -85,6 +89,7 @@ def add_new_car(request):
     context={
         'brands':Brand.objects.all(),
         'models':BrandModel.objects.all(),
+        'showroom':Showroom.objects.get(id=request.session['showroom_id']),
     }
     return render(request,'add_new_car.html',context)
 
@@ -114,6 +119,7 @@ def edit_car(request,id):
         'brands':Brand.objects.all(),
         'models':BrandModel.objects.all(),
         'car_prod_date':car_prod_date,
+        'showroom':Showroom.objects.get(id=request.session['showroom_id']),
     }
 
     return render(request,'edit_car.html',context)
@@ -153,6 +159,7 @@ def show_car(request,id):
     context={
         'car':car,
         'doc_types':DocumentType.objects.all(),
+        'showroom':Showroom.objects.get(id=request.session['showroom_id']),
     }
     return render(request,'show_car.html',context)
 

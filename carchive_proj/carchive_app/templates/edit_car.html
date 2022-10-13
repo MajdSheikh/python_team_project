@@ -8,7 +8,7 @@
   <title>Add a new car</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -23,6 +23,9 @@
         <a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
         <a href="/logout/" class="btn btn-danger btn-sm">logout</a>
       </div>
+      <div>
+        <div class="col font-weight-bold">{{showroom.name}}</div>
+      </div>
     </div>
   </header>
 
@@ -34,11 +37,12 @@
           <label for="brand" class="form-label">Brand</label>
           <select id="brand" name="brand" class="form-control">
             {% for brand in brands %}
-            <option value="{{brand.id}}"
+            <option value="{{brand.id}}" 
             {% if brand.id == car.model.brand.id %}
-            selected
+            selected 
             {% endif %}
-            >{{brand.name}}</option>
+            >{{brand.name}}
+            </option>
             {% endfor %}
           </select>
         </div>
@@ -46,9 +50,9 @@
           <label for="model" class="form-label">Model</label>
           <select id="model" name="model" class="form-control">
             {% for model in models %}
-            <option value="{{model.id}}"
+            <option value="{{model.id}}" 
             {% if model.id == car.model.id %}
-            selected
+            selected 
             {% endif %}
             >{{model.name}}</option>
             {% endfor %}
@@ -62,34 +66,34 @@
         <div class="my-3">
           <label for="color" class="form-label">Color</label>
           <select id="color" name="color" class="form-control">
-            <option value="red"
+            <option value="red" 
             {% if car.color == 'red' %}
-            selected
+            selected 
             {% endif %}
             >Red</option>
-            <option value="black"
+            <option value="black" 
             {% if car.color == 'black' %}
             selected
             {% endif %}
             >Black</option>
-            <option value="white"
+            <option value="white" 
             {% if car.color == 'red' %}
-            selected
+            selected 
             {% endif %}
             >White</option>
-            <option value="darkblue"
+            <option value="darkblue" 
             {% if car.color == 'darkblue' %}
-            selected
+            selected 
             {% endif %}
             >DarkBlue</option>
-            <option value="purple"
+            <option value="purple" 
             {% if car.color == 'purple' %}
-            selected
+            selected 
             {% endif %}
             >Purple</option>
-            <option value="green"
+            <option value="green" 
             {% if car.color == 'green' %}
-            selected
+            selected 
             {% endif %}
             >Green</option>
           </select>

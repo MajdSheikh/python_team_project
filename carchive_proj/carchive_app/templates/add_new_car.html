@@ -23,6 +23,10 @@
         <a href="/logout/" class="btn btn-danger btn-sm">logout</a>
       </div>
     </div>
+    <div>
+      
+      <div class="col font-weight-bold">{{showroom.name}}</div>
+    </div>
   </header>
 
   <main class="mx-5 row">
@@ -32,6 +36,7 @@
         <div>
           <label for="brand" class="form-label">Brand</label>
           <select id="brand" name="brand" class="form-control" onchange="populate(this,'model')">
+            <option disabled selected value>-- select a brand --</option>
             {% for brand in brands %}
             <option value="{{brand.id}}">{{brand.name}}</option>
             {% endfor %}
@@ -40,6 +45,7 @@
         <div class="my-3">
           <label for="model" class="form-label">Model</label>
           <select id="model" name="model" class="form-control">
+            <option disabled selected value>-- select a model --</option>
             {% for model in models %}
             <option value="{{model.id}}">{{model.name}}</option>
             {% endfor %}
@@ -53,6 +59,7 @@
         <div class="my-3">
           <label for="color" class="form-label">Color</label>
           <select id="color" name="color" class="form-control">
+            <option disabled selected value>-- select a color --</option>
             <option value="red">Red</option>
             <option value="black">Black</option>
             <option value="white">White</option>

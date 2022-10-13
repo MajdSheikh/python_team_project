@@ -90,9 +90,10 @@ def update_showroom(request, id):
     this_showroom.license_number=request.POST['license_number']
     this_showroom.name=request.POST['name']
     this_showroom.email=request.POST['email']
-    password=request.POST['password']
-    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    this_showroom.password=pw_hash
+    if len(request.POST['password'])>5:
+        password=request.POST['password']
+        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        this_showroom.password=pw_hash
     
     this_showroom.save()
     return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
