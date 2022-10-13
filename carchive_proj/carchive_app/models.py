@@ -31,6 +31,10 @@ class Car(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    # def delete(self, *args, **kwargs):
+    #     self.documents.delete()
+    #     super().delete(*args,**kwargs)
+
 class DocumentType(models.Model):
     type=models.CharField(max_length=45)
     created_at=models.DateTimeField(auto_now_add=True)
