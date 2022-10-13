@@ -138,6 +138,11 @@ def update_car(request,id):
             car.save()
             return redirect('/show_car/'+str(car.id)+'/')
     return ('/')
+
+def delete_car(request,id):
+    tb_deleted_car=Car.objects.get(id=id)
+    tb_deleted_car.delete()
+    return redirect('/dashboard/')
     
 def show_car(request,id):
     if not showroom_logged_in(request):

@@ -14,6 +14,7 @@ urlpatterns=[
     path('create_new_car/',views.create_car),
     path('edit_car/<id>/',views.edit_car),
     path('update_car/<id>/',views.update_car),
+    path('delete_car/<id>/',views.delete_car),
     path('show_car/<id>/',views.show_car),
     path('upload_doc/<id>/',views.upload_doc),
     path('delete_document/<id>/',views.delete_document),
