@@ -8,6 +8,7 @@
   <title>Add a new car</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -35,7 +36,7 @@
         {% csrf_token %}
         <div>
           <label for="brand" class="form-label">Brand</label>
-          <select id="brand" name="brand" class="form-control" onchange="populate(this,'model')">
+          <select id="brand" name="brand" class="form-control" onchange="getModels()">
             <option disabled selected value>-- select a brand --</option>
             {% for brand in brands %}
             <option value="{{brand.id}}">{{brand.name}}</option>
@@ -45,10 +46,6 @@
         <div class="my-3">
           <label for="model" class="form-label">Model</label>
           <select id="model" name="model" class="form-control">
-            <option disabled selected value>-- select a model --</option>
-            {% for model in models %}
-            <option value="{{model.id}}">{{model.name}}</option>
-            {% endfor %}
           </select>
         </div>
 
@@ -80,6 +77,31 @@
     </div>
     <div class="col"></div>
   </main>
+  <script>
+    function getModels(){
+      brandSelect=document.getElementById('brand')
+    $.ajax(
+    {
+        type:"GET",
+        url: "/get_models/",
+        data:{
+              id:brandSelect.value
+        },
+        success: function( response ) 
+        {
+            console.log(response)
+            models=response['data']
+            modelSelect=document.getElementById('model')
+            modelSelect.innerHTML=''
+            for(i=0;i<models.length;i++){
+            $('#model').append("<option value="+models[i][0]+">"+models[i][1]+"</option>")
+            }
+        }
+    });
+    }
+    
+
+  </script>
 </body>
 
 </html>

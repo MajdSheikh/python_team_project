@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
-from carchive_app.models import *
-from django.contrib import messages
-import bcrypt
-from datetime import datetime
-from django.core.files.storage import FileSystemStorage
 import os
+from datetime import datetime
+
+import bcrypt
+from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.shortcuts import HttpResponse, redirect, render
+from django.core import serializers
+from carchive_app.models import *
 
 
 # Create your views here.
@@ -89,7 +92,6 @@ def add_new_car(request):
         return redirect('/')
     context={
         'brands':Brand.objects.all(),
-        'models':BrandModel.objects.all(),
         'showroom':Showroom.objects.get(id=request.session['showroom_id']),
     }
     return render(request,'add_new_car.html',context)
@@ -106,6 +108,16 @@ def create_car(request):
         Car.objects.create(model=model,showroom=showroom,prod_date=prod_date,color=color,vin=vin)
         return redirect('/dashboard/')
     return redirect('/dashboard/')
+
+def get_models(request):
+    if request.method == 'GET':
+        selected_brand=Brand.objects.get(id=request.GET['id'])
+        selected_brand_models=selected_brand.models.all()
+        models_list=[]
+        for model in selected_brand_models:
+            models_list.append([model.id,model.name])
+        print(models_list)
+        return JsonResponse({"data": models_list}, status=200)
 
 
 def edit_car(request,id):
