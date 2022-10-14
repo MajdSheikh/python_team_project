@@ -55,20 +55,21 @@ def change_password(request):
 def update_password(request):
     if not showroom_logged_in(request):
         return redirect('/')
-    logged_showroom=Showroom.objects.get(id=request.session['showroom_id'])
-    old_password=str(request.POST['old_password'])
-    new_password=str(request.POST['new_password'])
-    conf_new_password=request.POST['conf_new_password']
-    if bcrypt.checkpw(old_password.encode(),str(logged_showroom.password).encode()):
-        if new_password == conf_new_password:
-            logged_showroom.password=bcrypt.hashpw(new_password.encode(),bcrypt.gensalt()).decode()
-            logged_showroom.save()
-            print('password updated')
-            return redirect ('/dashboard/')
-        else:
-            print('password confirmation does not match')
-            messages.error(request,'password confirmation does not match')
-            return redirect('/change_password/')
+    if request.method == 'POST':
+        logged_showroom=Showroom.objects.get(id=request.session['showroom_id'])
+        old_password=str(request.POST['old_password'])
+        new_password=str(request.POST['new_password'])
+        conf_new_password=request.POST['conf_new_password']
+        if bcrypt.checkpw(old_password.encode(),str(logged_showroom.password).encode()):
+            if new_password == conf_new_password:
+                logged_showroom.password=bcrypt.hashpw(new_password.encode(),bcrypt.gensalt()).decode()
+                logged_showroom.save()
+                print('password updated')
+                return redirect ('/dashboard/')
+            else:
+                print('password confirmation does not match')
+                messages.error(request,'password confirmation does not match')
+                return redirect('/change_password/')
     else:
         print('Wrong old password')
         messages.error(request,'Wrong old password')
