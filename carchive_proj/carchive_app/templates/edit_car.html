@@ -35,7 +35,7 @@
         {% csrf_token %}
         <div>
           <label for="brand" class="form-label">Brand</label>
-          <select id="brand" name="brand" class="form-control">
+          <select id="brand" name="brand" class="form-control" onchange="getModels()">
             {% for brand in brands %}
             <option value="{{brand.id}}" 
             {% if brand.id == car.model.brand.id %}
@@ -119,6 +119,32 @@
 
     </div>
   </div>
+  <script>
+    // getModels()
+    function getModels(){
+      brandSelect=document.getElementById('brand')
+    $.ajax(
+    {
+        type:"GET",
+        url: "/get_models/",
+        data:{
+              id:brandSelect.value
+        },
+        success: function( response ) 
+        {
+            console.log(response)
+            models=response['data']
+            modelSelect=document.getElementById('model')
+            modelSelect.innerHTML=''
+            for(i=0;i<models.length;i++){
+            $('#model').append("<option value="+models[i][0]+">"+models[i][1]+"</option>")
+            }
+        }
+    });
+    }
+    
+
+  </script>
 
 </body>
 

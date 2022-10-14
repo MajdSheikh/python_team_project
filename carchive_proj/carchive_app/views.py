@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-
 import bcrypt
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
