@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .FONT {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: large;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,15 +24,16 @@
     </div>
     <div class="text-center row align-items-center my-2">
       <div class="col"></div>
-      <div class="col font-weight-bold">Add a New Car</div>
+      <div class="col FONT">Add a New Car</div>
       <div class="col">
-        <a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
-        <a href="/logout/" class="btn btn-danger btn-sm">logout</a>
+        <a href="/dashboard/" class="btn btn-primary btn-sm font-weight-bold">Dashboard</a>
+        <a href="/logout/" class="btn btn-danger btn-sm font-weight-bold">logout</a>
       </div>
     </div>
-    <div>
-      
-      <div class="col font-weight-bold">{{showroom.name}}</div>
+    <div class="text-center row align-items-center">
+      <div class="col"></div>
+      <div class="col FONT">{{showroom.name}}</div>
+      <div class="col"></div>
     </div>
   </header>
 
@@ -35,7 +42,7 @@
       <form action="/create_new_car/" method="POST">
         {% csrf_token %}
         <div>
-          <label for="brand" class="form-label">Brand</label>
+          <label for="brand" class="form-label font-weight-bold">Brand</label>
           <select id="brand" name="brand" class="form-control" onchange="getModels()">
             <option disabled selected value>-- select a brand --</option>
             {% for brand in brands %}
@@ -44,17 +51,17 @@
           </select>
         </div>
         <div class="my-3">
-          <label for="model" class="form-label">Model</label>
+          <label for="model" class="form-label font-weight-bold">Model</label>
           <select id="model" name="model" class="form-control">
           </select>
         </div>
 
         <div class="my-3">
-          <label for="prod_date" class="form-label">Production Date</label>
+          <label for="prod_date" class="form-label font-weight-bold">Production Date</label>
           <input type="date" name="prod_date" id="prod_date" class="form-control" >
         </div>
         <div class="my-3">
-          <label for="color" class="form-label">Color</label>
+          <label for="color" class="form-label font-weight-bold">Color</label>
           <select id="color" name="color" class="form-control">
             <option disabled selected value>-- select a color --</option>
             <option value="red">Red</option>
@@ -67,11 +74,11 @@
           </select>
         </div>
         <div class="my-3">
-          <label for="vin" class="form-label">VIN</label>
+          <label for="vin" class="form-label font-weight-bold">VIN</label>
           <input type="text" name="vin" class="form-control" >
         </div>
-        <div class="my-3">
-          <button type="submit" class="btn btn-primary my-2">Add</button>
+        <div class="my-3 text-center">
+          <button type="submit" class="btn btn-primary my-2 font-weight-bold">Add</button>
         </div>
       </form>
     </div>
@@ -102,6 +109,17 @@
     
 
   </script>
+
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
 </body>
 
 </html>

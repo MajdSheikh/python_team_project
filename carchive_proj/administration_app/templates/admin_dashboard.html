@@ -8,7 +8,15 @@
     <title>Carchive® Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style>
+        .TableWidth{
+            width: 60%;
+        }
+        .admin {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: larger;
+    }
+    </style>
 </head>
 <style>
     .myrow{
@@ -23,37 +31,39 @@
 
 <body>
     <header class="font-monospace border-bottom">
-
-    <nav class="navbar navbar-dark bg-dark  ">
-        <div class="container-fluid">
-          <a class=" mx-3 navbar-brand text-white h2" href="#">
-            {% load static %}
-           <img src= "{% static 'imgs/logo2.jpg' %} " alt="logo" width="50" height="40" class="d-inline-block align-text-mid">
-           archive
-          </a>
-          <div class="col">
-            <div class=" col  ">
-                <a  class=" text-white m-2" href="/admin/add_items/">Add Constant Items</a>
-                <a  class=" text-white" href="/admin/add_showroom/">Add a showroom</a>
-            </div>
-            </div>
-            <div class=" mx-5 justify-content-end   ">
-                <div class="col"><a href="/admin/logout/" class="btn btn-info btn-sm">Logout</a></div>
-              </div>
-            </div>
-          
+        <div class="text-center bg-dark row py-2">
+            <div class="col"></div>
+            <div><h1 class="text-light col">Carchive®</h1></div>
+            <div class="col"><a href="/admin/logout/" class="btn btn-danger btn-sm font-weight-bold my-3">Logout</a></div>
+        </div>
+        <div class="text-center row align-items-center my-2">
+            <div class="col"></div>
+            <div class="col admin">Administration</div>
+            <div class="col"></div>
         </div>
       </nav>
         
     </header>
-    <main class=" myrow">
-        <table class="table table-bordered table table-hover ">
-                <tr  class="head">
+
+    <div class="text-center row align-items-center my-2">
+        
+        <div class="col">
+            <a href="/admin/add_items/" class="btn btn-outline-primary">Add Constant Items</a></div>
+        <div class="col"></div> 
+        <div class="col">
+            <a href="/admin/add_showroom/" class="btn btn-outline-primary">Add a showroom</a>
+        </div>
+    </div>
+
+    <main class="mx-5 row">
+        <div class="m-5 col">
+            <table class="table table-striped container TableWidth">
+                <tr class="thead-dark">
                     <th>List of showrooms</th>
                     <th>Action</th>
                 </tr>
                 {% for showroom in showrooms %}
-                <tr class="">
+                <tr class="font-weight-bold">
                     <td>{{showroom.name}}</td>
                     <td>
                         <a href="/admin/display_showroom/{{showroom.id}}/">Show</a>

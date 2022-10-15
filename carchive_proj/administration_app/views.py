@@ -60,18 +60,25 @@ def create_showroom(request):
     if not is_logged_in(request):
         return redirect('/admin/')
     if request.method == 'POST':
-        admin=Admin.objects.get(id=request.session['id'])
-        name=request.POST['name']
-        email=request.POST['email']
-        password=str(request.POST['password'])
-        license_number=request.POST['license_number']
-        payment=request.POST['payment']
-        pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        # pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        Showroom.objects.create(name=name,email=email,password=pw_hash
+        errors = Admin.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/admin/add_showroom/")
+        else:
+
+            admin=Admin.objects.get(id=request.session['id'])
+            name=request.POST['name']
+            email=request.POST['email']
+            password=str(request.POST['password'])
+            license_number=request.POST['license_number']
+            payment=request.POST['payment']
+            pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+            # pw_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+            Showroom.objects.create(name=name,email=email,password=pw_hash
                                 ,license_number=license_number,payment=payment,created_by=admin)
-        return redirect('/admin/dashboard/')
-    return redirect('/admin/')
+            return redirect('/admin/dashboard/')
+    return redirect('/admin/add_showroom/')
 
 
 def edit_showroom(request,id):
@@ -84,18 +91,28 @@ def edit_showroom(request,id):
 
 
 def update_showroom(request, id):
-    if not is_logged_in(request):
-        return redirect('/admin/')
-    this_showroom= Showroom.objects.get(id=id)
-    this_showroom.license_number=request.POST['license_number']
-    this_showroom.name=request.POST['name']
-    this_showroom.email=request.POST['email']
-    if len(request.POST['password'])>5:
-        password=request.POST['password']
-        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        this_showroom.password=pw_hash
+    # if not is_logged_in(request):
+    #     return redirect('/admin/')
+
+    if request.method == 'POST':
+        this_showroom = Showroom.objects.get(id=id)
+        errors =Admin.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
+        else:
+            this_showroom= Showroom.objects.get(id=id)
+            this_showroom.license_number=request.POST['license_number']
+            this_showroom.name=request.POST['name']
+            this_showroom.email=request.POST['email']
+            if len(request.POST['password'])>5:
+                password=request.POST['password']
+                pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+                this_showroom.password=pw_hash
     
-    this_showroom.save()
+            this_showroom.save()
+            return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
     return redirect('/admin/edit_showroom/' + str(this_showroom.id)+'/')
 
 
@@ -113,19 +130,32 @@ def process_items(request):
         return redirect('/admin/')
     if request.method == 'POST':
         if request.POST['source']=='brand':
+            errors = Brand.objects.brand_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect("/admin/add_items/")
             brand_name=request.POST['brand']
             Brand.objects.create(name=brand_name)
         elif request.POST['source']=='model':
+            error = BrandModel.objects.modelBrand_validator(request.POST)
+            if len(error) > 0:
+                for key, value in error.items():
+                    messages.error(request, value)
+                return redirect("/admin/add_items/")
             brand=Brand.objects.get(id=request.POST['brand'])
             new_model=request.POST['model']
             BrandModel.objects.create(brand=brand,name=new_model)
         elif request.POST['source']=='doc_type':
+            errors = DocumentType.objects.DocumentType_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect("/admin/add_items/")
             doc_type=request.POST['doc_type']
             DocumentType.objects.create(type=doc_type)
         return redirect('/admin/add_items/')
-
-    else:
-        return redirect('/admin/')
+    return redirect('/admin/add_items/')
 
 
 def display_showroom(request, id):

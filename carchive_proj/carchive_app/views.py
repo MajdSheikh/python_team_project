@@ -140,13 +140,19 @@ def create_car(request):
     if not showroom_logged_in(request):
         return redirect('/')
     if request.method == 'POST':
-        model=BrandModel.objects.get(id=request.POST['model'])
-        showroom=Showroom.objects.get(id=request.session['showroom_id'])
-        prod_date=request.POST['prod_date']
-        color=request.POST['color']
-        vin=request.POST['vin']
-        Car.objects.create(model=model,showroom=showroom,prod_date=prod_date,color=color,vin=vin)
-        return redirect('/dashboard/')
+        errors = Car.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/add_new_car/")
+        else:
+            model=BrandModel.objects.get(id=request.POST['model'])
+            showroom=Showroom.objects.get(id=request.session['showroom_id'])
+            prod_date=request.POST['prod_date']
+            color=request.POST['color']
+            vin=request.POST['vin']
+            Car.objects.create(model=model,showroom=showroom,prod_date=prod_date,color=color,vin=vin)
+            return redirect('/dashboard/')
     return redirect('/dashboard/')
 
 #gets models of brands using AJAX request response
@@ -183,6 +189,13 @@ def update_car(request,id):
     if not showroom_logged_in(request):
         return redirect('/')
     if request.method == 'POST':
+        car=Car.objects.get(id=id)
+        errors = Car.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/edit_car/"+ str(id)+'/')
+    else:
         try:
             car=Car.objects.get(id=id)
         except:
@@ -198,7 +211,7 @@ def update_car(request,id):
             car.vin=vin
             car.save()
             return redirect('/show_car/'+str(car.id)+'/')
-    return ('/')
+    return redirect("/edit_car/"+ str(id)+'/')
 
 #deletes a car object
 def delete_car(request,id):
