@@ -32,7 +32,6 @@ def showroom_logged_in(request):
 #processes the login post request and identifies the user
 def logging(request):
     if request.method == 'POST':
-        license=request.POST['license']
         email=request.POST['email']
         password=request.POST['password']
         try:
