@@ -9,49 +9,66 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <title>Carchive® Admin</title>
 </head>
+<style>
+  .my_buttons{
+    margin:45%;
+  }
+
+ .font{
+
+  font-family:'Courier New', Courier, monospace;
+  font-size: larger;
+    }
+.show_form{
+  width: 50%;
+  margin: 0 auto; 
+  background-color: ghostwhite;
+}
+ 
+</style>
 
 <body>
   <header class="font-monospace border-bottom">
-    <div class="text-center bg-dark">
-      <h1 class="text-light">Carchive®</h1>
-    </div>
-    <div class="row my-2">
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="my-2 col justify-content-end">
-        <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
-        <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
+    <nav class="navbar navbar-light bg-dark text-white">
+      <div class="container-fluid">
+      <a class=" mx-4 navbar-brand text-white h2" href="#">
+          {% load static %}
+          <img src="{% static 'imgs/logo2.jpg' %} " alt="logo" width="50" height="40"class="d-inline-block align-text-mid">
+          archive
+        </a>
+        <div class=" mx-5 justify-content-end   ">
+          <div  class="my-2 col  ">
+            <a href="/admin/dashboard/" class="btn btn-secondary  btn-sm ">Dashboard</a>
+            <a href="/admin/logout/"  style="background-color: rgb(49, 173, 192);" class="btn  btn-sm">logout</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   </header>
-
-  <main class="mx-5 row">
-    <div class="my-5 col">
-      
-        <div>
-            <h4>Showroom name: <span>{{this_showroom.name}}</span></h4>
+      <main>
+    <div class="my-5 border border-info shadow-lg p-3 show_form " >
+      <div class=" mx-3  " >
+      <div class=" h4  " >
+            <h4>Showroom name: <span  class="font">{{this_showroom.name}}</span></h4>
         </div>
-        <div class="my-3">
-            <h4>Owner email: <span>{{this_showroom.email}}</span></h4>
+        <div class=" h4">
+            <h4>Owner email: <span class="font">{{this_showroom.email}}</span></h4>
         </div>
-        <div class="my-3">
-            <h4>Showroom license number: <span>{{this_showroom.license_number}}</span></h4>
+        <div class=" h4">
+            <h4>Showroom license number: <span  class="font">{{this_showroom.license_number}}</span></h4>
         </div>
-        <div class="my-3">
-            <h4>Payment method: <span>{{this_showroom.payment}}</span></h4>
+        <div class=" h4">
+            <h4>Payment method: <span  class="font">{{this_showroom.payment}}</span></h4>
         </div>
       
 
     </div>
-    <div class="col"></div>
+    </div>
   </main>
 
-  <div class="row my-2">
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="my-2 col justify-content-end">
-        <a href="/admin/edit_showroom/{{this_showroom.id}}/" class="btn btn-primary btn-sm">Edit</a>
-        <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-danger btn-sm">Delete</a>
+    <div class="my-2 col  my_buttons">
+        <a href="/admin/edit_showroom/{{this_showroom.id}}/"  style="background-color: rgb(56, 196, 217);"class="btn btn-md display-1">Edit</a>
+        <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-outline-secondary btn-md display-1">Delete</a>
     </div>
 </div>
 </body>

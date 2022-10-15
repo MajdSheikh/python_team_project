@@ -9,50 +9,74 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>Carchive®</title>
 </head>
+<style>
+  .myrow{
+    width:40%;
+
+  }
+
+
+.container1{
+  width: 75%;
+  font-weight: 500;
+  border-radius: 7%;
+  margin-top: 15px;
+
+}
+
+
+</style>
 
 <body>
   <header class="font-monospace border-bottom">
-    <div class="text-center bg-dark">
-      <h1 class="text-light">Carchive®</h1>
-    </div>
-    <div class="row my-2">
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="my-2 col justify-content-end">
-        <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
-        <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
+    <nav class="navbar navbar-light bg-dark text-white">
+      <div class="container-fluid">
+      <a class=" mx-4 navbar-brand text-white h2" href="#">
+          {% load static %}
+          <img src="{% static 'imgs/logo2.jpg' %} " alt="logo" width="50" height="40" class="d-inline-block align-text-mid">
+          archive
+        </a>
+        <div class=" mx-5 justify-content-end   ">
+          <div  class="my-2 col  ">
+            <a href="/admin/dashboard/" class="btn btn-secondary btn-sm ">Dashboard</a>
+            <a href="/admin/logout/" class="btn btn-info btn-sm">logout</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   </header>
-  <main class="mx-5 row">
-    <div class="my-5 col">
+  <main class="mx-5 myrow">
+    <div class="col container1 bg-dark shadow-lg b-3 p-3">
       <form action="/admin/create_showroom/" method="POST">
         {% csrf_token %}
         <div>
-          <label class="form-label">Name</label>
+          <div class="my-3 p-2 column">
+          <label class="form-label text-white">Name</label>
           <input type="text" name="name" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">Email</label>
+        <div class="my-3 p-2 column  ">
+          <label class="form-label text-white">Email</label>
           <input type="text" name="email" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">Password</label>
+        <div class="my-3  p-2 column  ">
+          <label class="form-label text-white">Password</label>
           <input type="password" name="password" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">License number</label>
+        <div class="my-3  p-2 column  ">
+          <label class="form-label text-white">License number</label>
           <input type="text" name="license_number" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">Payment</label>
-          <select name="payment">
+        <div class=" p-2 mx-2 ">
+          <label class="form-label text-white">Payment</label>
+        </div>
+          <select  class=" mx-3" name="payment">
             <option value="not paid">not paid</option>
             <option value="cash">cash</option>
             <option value="cheques">cheques</option>
           </select>
-          <div class="my-5 col">
-            <button class="btn btn-primary my-2">Add</button>
+          <div class="col p-2">
+            <button style="margin:3% 40%;" class="btn btn-info btn-md">Add</button>
+
           </div>
         </div>
       </form>
