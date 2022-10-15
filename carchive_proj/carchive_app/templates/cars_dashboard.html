@@ -71,7 +71,34 @@
 
     </main>
 
-
+    <script>
+        function search(){
+            searchKey=document.getElementById('vin_search').value.toUpperCase()
+            $.ajax(
+                {
+                    type:"GET",
+                    url: "/find_by_vin/",
+                    data:{
+                        key:searchKey
+                    },
+                    success: function( response ) 
+                    {
+                        var results=response['results']
+                        console.log(response['results'])
+                        var table_of_content=document.getElementById('search_results')
+                        console.log(table_of_content)
+                        table_of_content.innerHTML=''
+                        table_of_content.innerHTML+=('<tr><th class="table-dark">ID</th><th class="table-dark">VIN</th><th class="table-dark">Model</th><th class="table-dark">Actions</th></tr>')
+                        for(i=0;i<results.length;i++){
+                            table_of_content.innerHTML+=(
+                        '<tr><td>'+results[i]['id']+'</td><td>'+results[i]['vin']+'</td><td>'+results[i]['model']+'</td><td><a href="/show_car/'+results[i]['id']+'/">show</a> | <a href="/edit_car/'+results[i]['id']+'/">edit</a> | <a href="/delete_car/'+results[i]['id']+'/">delete</a></td></tr>')
+                        }
+                        
+                        // '<tr><td>'+results[i]['id']+'</td><td>'+results[i]['vin']+'</td><td>'+results[i]['model']+'</td><td><a href="/show_car/'+results[i]['id']+'/">show</a> | <a href="/edit_car/'+results[i]['id']+'/">edit</a> | <a href="/delete_car/'+results[i]['id']+'/">delete</a></td></tr>
+                    }
+                });
+            }
+    </script>
 </body>
 
 </html>

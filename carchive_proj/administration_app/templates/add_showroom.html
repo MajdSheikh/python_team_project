@@ -12,6 +12,23 @@
   
   </style>
 </head>
+<style>
+  .myrow{
+    width:40%;
+
+  }
+
+
+.container1{
+  width: 75%;
+  font-weight: 500;
+  border-radius: 7%;
+  margin-top: 15px;
+
+}
+
+
+</style>
 
 <body>
   <header class="font-monospace border-bottom">
@@ -25,10 +42,10 @@
         <a href="/admin/dashboard/" class="btn btn-primary btn-sm font-weight-bold">Dashboard</a>
         <a href="/admin/logout/" class="btn btn-danger btn-sm font-weight-bold">logout</a>
       </div>
-    </div>
+    </nav>
   </header>
-  <main class="mx-5 row">
-    <div class="my-5 col">
+  <main class="mx-5 myrow">
+    <div class="col container1 bg-dark shadow-lg b-3 p-3">
       <form action="/admin/create_showroom/" method="POST">
         {% csrf_token %}
         <div>

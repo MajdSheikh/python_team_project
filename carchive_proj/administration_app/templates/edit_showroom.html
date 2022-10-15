@@ -19,6 +19,25 @@
     }
   </style>
 </head>
+<style>
+  .my_container{
+    width:30%;
+    border-radius: 7%;
+    
+  }
+.column{
+color:white;
+}
+
+.container2{
+  width: 80%;
+  padding: 5px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+
+</style>
 
 <body>
   <header class="font-monospace border-bottom">
@@ -32,10 +51,11 @@
         <a href="/admin/dashboard/" class="btn btn-primary btn-sm font-weight-bold BOLD">Dashboard</a>
         <a href="/admin/logout/" class="btn btn-danger btn-sm font-weight-bold BOLD">logout</a>
       </div>
-    </div>
+    </nav>
+   
   </header>
-  <main class="mx-5 row">
-    <div class="my-5 col">
+  <main class=" shadow-lg  mx-5 my_container bg-dark m-5 ">
+    <div class=" col container2 ">
       <form action="/admin/update_showroom/{{this_showroom.id}}/" method="POST" class="d-inline">
         {% csrf_token %}
         <div>
@@ -64,6 +84,10 @@
           <div class="my-5 col ">
             <button class="btn btn-primary my-2 font-weight-bold BOLD">Edit</button>
           </div>
+        </div>
+        </div>
+
+        
         </div>
       </form>
     </div>
