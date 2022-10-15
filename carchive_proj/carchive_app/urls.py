@@ -10,6 +10,7 @@ urlpatterns=[
     path('change_password/',views.change_password),
     path('update_password/',views.update_password),
     path('dashboard/',views.cars_dashboard),
+    path('find_by_vin/',views.find_by_vin),
     path('add_new_car/',views.add_new_car),
     path('create_new_car/',views.create_car),
     path('edit_car/<id>/',views.edit_car),

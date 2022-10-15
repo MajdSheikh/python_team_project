@@ -10,22 +10,26 @@ from carchive_app.models import *
 
 
 # Create your views here.
+#renders the login page
 def showroom_login(request):
     if 'showroom_id' in request.session:
         return redirect('/dashboard/')
     return render(request,'showroom_login.html')
 
+#processes the logout and deletes session key
 def showroom_logout(request):
     if 'showroom_id' in request.session:
         del request.session['showroom_id']
     return redirect('/')
 
+#checks if the user is logged in
 def showroom_logged_in(request):
     if not 'showroom_id' in request.session:
         return False
     else:
         return True
 
+#processes the login post request and identifies the user
 def logging(request):
     if request.method == 'POST':
         license=request.POST['license']
@@ -46,6 +50,8 @@ def logging(request):
     else:
         return ('/')
 
+
+#renders the user's change password template
 def change_password(request):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -54,6 +60,8 @@ def change_password(request):
     }
     return render(request,'change_password.html',context)
 
+
+#processes the input coming from change password template
 def update_password(request):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -77,6 +85,8 @@ def update_password(request):
         messages.error(request,'Wrong old password')
         return redirect('/change_password/')
 
+
+#renders the homepage(dashboard) of the user
 def cars_dashboard(request):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -86,6 +96,37 @@ def cars_dashboard(request):
     }
     return render(request,'cars_dashboard.html',context)
 
+
+#uses AJAX to search for 
+def find_by_vin(request):
+    if request.method == 'GET':
+        key=request.GET['key']
+        print(key)
+        showroom_cars=Showroom.objects.get(id=request.session['showroom_id']).cars.all().filter(vin__startswith=key)
+        print(showroom_cars)
+        results=[]
+        for car in showroom_cars:
+            temp={
+                'id':car.id,
+                'vin':car.vin,
+                'model':car.model.brand.name+' '+car.model.name,
+            }
+            results.append(temp)
+        print(results)
+        # results=Showroom.objects.get(id=request.session['showroom_id']).cars.all().filter(vin__startswith=key)
+        # data=[]
+        # for car in results:
+        #     item={
+        #         'id':car.id,
+        #         'vin':car.vin,
+        #         'model':car.model.brand.name+' '+car.model.name,
+        #     }
+        #     data.append(item)
+        #     res=data
+        return JsonResponse({'results':results})
+
+
+#renders adding a new car template
 def add_new_car(request):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -95,6 +136,7 @@ def add_new_car(request):
     }
     return render(request,'add_new_car.html',context)
 
+#creates a new car object
 def create_car(request):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -108,6 +150,7 @@ def create_car(request):
         return redirect('/dashboard/')
     return redirect('/dashboard/')
 
+#gets models of brands using AJAX request response
 def get_models(request):
     if request.method == 'GET':
         selected_brand=Brand.objects.get(id=request.GET['id'])
@@ -118,7 +161,7 @@ def get_models(request):
         print(models_list)
         return JsonResponse({"data": models_list}, status=200)
 
-
+#renders edit car
 def edit_car(request,id):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -136,6 +179,7 @@ def edit_car(request,id):
 
     return render(request,'edit_car.html',context)
 
+#updates the car table with the posted data
 def update_car(request,id):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -157,11 +201,14 @@ def update_car(request,id):
             return redirect('/show_car/'+str(car.id)+'/')
     return ('/')
 
+#deletes a car object
 def delete_car(request,id):
     tb_deleted_car=Car.objects.get(id=id)
     tb_deleted_car.delete()
     return redirect('/dashboard/')
     
+
+#renders the showcar template with the documents list
 def show_car(request,id):
     if not showroom_logged_in(request):
         return redirect('/')
@@ -175,7 +222,7 @@ def show_car(request,id):
     }
     return render(request,'show_car.html',context)
 
-
+#uploading car's documents process
 def upload_doc(request,id):
     if request.method == 'POST':
         uploaded_file=request.FILES['document']
@@ -192,6 +239,7 @@ def upload_doc(request,id):
 
     return redirect('/show_car/'+str(id)+'/')
 
+#deletes document from db and filesystem
 def delete_document(request,id):
     tb_deleted_doc=Document.objects.get(id=id)
     car_id=tb_deleted_doc.car.id
@@ -200,9 +248,8 @@ def delete_document(request,id):
     return redirect('/show_car/'+str(car_id)+'/')
 
 
-
+# """ Deletes file from filesystem. """
 def _delete_file(path):
-    """ Deletes file from filesystem. """
     if os.path.isfile(path):
         print('inside the function deleted file '+path)
         os.remove(path)
