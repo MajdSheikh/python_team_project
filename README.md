@@ -142,6 +142,5 @@ Then you login with the email and password you added to the admins table
   3. Maram Naqeeb
   4. Aseel Adel
 
-## How to run the app for the first time: 
 
 
