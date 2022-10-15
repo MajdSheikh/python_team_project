@@ -12,21 +12,26 @@
 
 <body>
     <header class="font-monospace border-bottom">
-        <div class="text-center bg-dark">
-            <h1 class="text-light">Carchive®</h1>
+        <div class="text-center bg-dark py-2 row">
+            <div class="col"></div>
+            <h1 class="text-light col">Carchive®</h1>
+            <div class="my-2 col justify-content-end">
+                <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
+            </div>
         </div>
-        <div class="row my-2">
+        <!-- <div class="row my-2">
             <div class="col"></div>
             <div class="col"></div>
             <div class="my-2 col justify-content-end">
                 <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
                 <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
             </div>
-        </div>
+        </div> -->
     </header>
-    <main class="mx-5 row">
-        <div class="col">
-            <div class="mx-3 text-center">
+    <main class="mx-5 row my-5">
+        <div class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3">
                 <h3 class="my-4">Add a new brand:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
@@ -37,8 +42,8 @@
                 </form>
             </div>
         </div>
-        <div class="col">
-            <div class="mx-3 text-center">
+        <div class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3">
                 <h3 class="my-4">Add a new model:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
@@ -55,8 +60,8 @@
                 </form>
             </div>
         </div>
-        <div class="col">
-            <div class="mx-3 text-center">
+        <div class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3">
                 <h3 class="my-4">Add a new Document type:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
@@ -68,6 +73,15 @@
             </div>
         </div>
     </main>
+
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+
 </body>
 
 </html>
