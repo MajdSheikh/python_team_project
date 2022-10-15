@@ -73,7 +73,7 @@ In regards to the back end, it is done by using python language (Django framewor
 
 ## Templates of the first application
 - Admin login page: This page is only for the application administrative team.
-  you need to initialize a new admin instance by using the pyhton shell:
+  you need to initialize a new admin instance by using the pyhton shell, also don't forget to apply migrations:
 
 ```
 (djangoPythEnv) λ python manage.py shell
