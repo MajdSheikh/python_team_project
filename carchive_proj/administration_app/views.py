@@ -60,7 +60,7 @@ def create_showroom(request):
     if not is_logged_in(request):
         return redirect('/admin/')
     if request.method == 'POST':
-        errors = Admin.objects.basic_validator(request.POST)
+        errors = Showroom.objects.basic_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
@@ -96,7 +96,7 @@ def update_showroom(request, id):
 
     if request.method == 'POST':
         this_showroom = Showroom.objects.get(id=id)
-        errors =Admin.objects.basic_validator(request.POST)
+        errors =Showroom.objects.advanced_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)

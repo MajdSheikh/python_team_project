@@ -237,15 +237,19 @@ def show_car(request,id):
 #uploading car's documents process
 def upload_doc(request,id):
     if request.method == 'POST':
-        uploaded_file=request.FILES['document']
-        doc_type_id = request.POST['doc_type']
-        doc_type=DocumentType.objects.get(id = doc_type_id)
-        car=Car.objects.get(id=id)
-        # print(uploaded_file.name)
-        # print(uploaded_file.size)
-        # fs=FileSystemStorage()
-        # fs.save(uploaded_file.name,uploaded_file)
-        Document.objects.create(car=car,type=doc_type,doc=uploaded_file)
+        try:
+            uploaded_file=request.FILES['document']
+            doc_type_id = request.POST['doc_type']
+        except:
+            messages.error(request,'Please choose a file')
+        else:
+            doc_type=DocumentType.objects.get(id = doc_type_id)
+            car=Car.objects.get(id=id)
+            # print(uploaded_file.name)
+            # print(uploaded_file.size)
+            # fs=FileSystemStorage()
+            # fs.save(uploaded_file.name,uploaded_file)
+            Document.objects.create(car=car,type=doc_type,doc=uploaded_file)
 
 
 

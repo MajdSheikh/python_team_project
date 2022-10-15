@@ -75,14 +75,21 @@
         </div>
         <div class="my-3">
           <label for="vin" class="form-label font-weight-bold">VIN</label>
-          <input type="text" name="vin" class="form-control" >
+          <input type="text" name="vin" class="form-control" maxlength="17">
         </div>
         <div class="my-3 text-center">
           <button type="submit" class="btn btn-primary my-2 font-weight-bold">Add</button>
         </div>
       </form>
     </div>
-    <div class="col"></div>
+    <div class="col">
+      {% if messages %}
+      <ul class="messages text-danger my-5">    
+          {% for message in messages %}    
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+          {% endfor %}
+      </ul>
+      {% endif %}</div>
   </main>
   <script>
     function getModels(){
@@ -110,13 +117,7 @@
 
   </script>
 
-{% if messages %}
-<ul class="messages">    
-    {% for message in messages %}    
-    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
-    {% endfor %}
-</ul>
-{% endif %}
+
 
 
 

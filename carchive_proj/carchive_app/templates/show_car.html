@@ -8,17 +8,18 @@
     <title>Car</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-        <style>
-            .font {
-              font-family: 'Courier New', Courier, monospace;
-              font-size: larger;
-            }
-            .BORDER {
-              padding: 20px;
-              box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-            }
-          </style>
-    </head>
+    <style>
+        .font {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: larger;
+        }
+
+        .BORDER {
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+    </style>
+</head>
 
 <body>
     <header class="font-monospace border-bottom">
@@ -37,26 +38,26 @@
             <div class="col"></div>
             <div class="col font-weight-bold font ">{{showroom.name}}</div>
             <div class="col"></div>
-          </div>
+        </div>
     </header>
 
     <main class="mx-5 row">
         <div class="my-5 col BORDER">
             <div>
-                <h4>Brand: <span  class="font">{{car.model.brand.name}}</span></h4>
+                <h4>Brand: <span class="font">{{car.model.brand.name}}</span></h4>
             </div>
             <div class="my-3">
-                <h4>Model: <span  class="font">{{car.model.name}}</span></h4>
+                <h4>Model: <span class="font">{{car.model.name}}</span></h4>
             </div>
 
             <div class="my-3">
-                <h4>Production date: <span  class="font">{{car.prod_date}}</span></h4>
+                <h4>Production date: <span class="font">{{car.prod_date}}</span></h4>
             </div>
             <div class="my-3">
-                <h4>Color: <span  class="font">{{car.color}}</span></h4>
+                <h4>Color: <span class="font">{{car.color}}</span></h4>
             </div>
             <div class="my-3">
-                <h4>VIN: <span  class="font">{{car.vin}}</span></h4>
+                <h4>VIN: <span class="font">{{car.vin}}</span></h4>
             </div>
             <div class="my-3">
             </div>
@@ -92,6 +93,15 @@
                         </div>
                         <input type="submit" value="Upload" class="btn btn-primary my-3 font-weight-bold">
                     </form>
+
+                    {% if messages %}
+                    <ul class="messages text-danger">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
                 </div>
 
             </div>
