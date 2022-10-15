@@ -9,57 +9,88 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <title>Carchive® Admin</title>
 </head>
+<style>
+  .my_container{
+    width:30%;
+    border-radius: 7%;
+    
+  }
+.column{
+color:white;
+}
+
+.container2{
+  width: 80%;
+  padding: 5px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+
+</style>
 
 <body>
   <header class="font-monospace border-bottom">
-    <div class="text-center bg-dark">
-      <h1 class="text-light">Carchive®</h1>
-    </div>
-    <div class="row my-2">
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="my-2 col justify-content-end">
-        <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
-        <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
+    <nav class="navbar navbar-light bg-dark text-white">
+      <div class="container-fluid">
+      <a class=" mx-4 navbar-brand text-white h2" href="#">
+          {% load static %}
+          <img src="{% static 'imgs/logo2.jpg' %} " alt="logo" width="50" height="40" class="d-inline-block align-text-mid">
+          archive
+        </a>
+        <div class=" mx-5 justify-content-end   ">
+          <div  class="my-2 col  ">
+            <a href="/admin/dashboard/" class="btn btn-secondary  btn-sm ">Dashboard</a>
+            <a href="/admin/logout/"  style="background-color: rgb(51, 194, 216);" class="btn  btn-sm">logout</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
+   
   </header>
-  <main class="mx-5 row">
-    <div class="my-5 col">
+  <main class=" shadow-lg  mx-5 my_container bg-dark m-5 ">
+    <div class=" col container2 ">
       <form action="/admin/update_showroom/{{this_showroom.id}}/" method="POST" class="d-inline">
         {% csrf_token %}
         <div>
-          <label class="form-label">Name</label>
+          <div class="my-3 ">
+          <label class="form-label text-white">Name</label>
           <input type="text" name="name" value="{{this_showroom.name}}" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">Email</label>
+        <div class="my-3  ">
+          <label class="form-label text-white">Email</label>
           <input type="text" name="email" value="{{this_showroom.email}}" class="form-control" />
         </div>
-        <div class="my-3">
-          <label class="form-label">New Password</label>
+        <div class="my-3  ">
+          <label class="form-label text-white">New Password</label>
           <input type="password" name="password" class="form-control" />
         </div>
         <div class="my-3">
-          <label class="form-label">license number</label>
+          <label class="form-label text-white">license number</label>
           <input type="text" name="license_number" value="{{this_showroom.license_number}}" class="form-control" />
         </div>
-        <div class="my-3 d-inline">
-          <label class="form-label">Payment</label>
+        <div class=" p-2">
+          <label class="form-label text-white">Payment</label>
+          </div>
+          <div>
           <select name="payment_method">
             <option value="not paid">not paid</option>
             <option value="cash">cash</option>
             <option value="cheque">cheque</option>
           </select>
-          <div class="my-5 col d-inline">
-            <button class="btn btn-primary btn-lg my-2 d-inline mx-2">Edit</button>
+
+          <div  class="my-4">
+            <button style="background-color: rgb(49, 173, 192);" class="btn btn-md ">Edit</button>
+            <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-outline-info btn-md ">Delete</a>
+          </div>
           </div>
         </div>
+        </div>
+
+        
+        </div>
       </form>
-      <div class="d-inline">
-        <a href="/admin/delete_showroom/{{this_showroom.id}}/" class="btn btn-danger btn-sm d-inline">Delete</a>
       </div>
-    </div>
     <div class="col"></div>
   </main>
 </body>

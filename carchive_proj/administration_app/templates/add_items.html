@@ -12,58 +12,62 @@
 
 <body>
     <header class="font-monospace border-bottom">
-        <div class="text-center bg-dark">
-            <h1 class="text-light">Carchive®</h1>
-        </div>
-        <div class="row my-2">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="my-2 col justify-content-end">
-                <a href="/admin/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
-                <a href="/admin/logout/" class="btn btn-danger btn-sm">logout</a>
+        <nav class="navbar navbar-light bg-dark text-white">
+          <div class="container-fluid">
+          <a class="mx-4 navbar-brand text-white h2" href="#">
+              {% load static %}
+              <img src="{% static 'imgs/logo2.jpg' %} " alt="logo" width="50" height="40" class="d-inline-block align-text-mid">
+              archive
+            </a>
+            <div class=" mx-5 justify-content-end ">
+              <div  class="my-2 col  ">
+                <a href="/admin/dashboard/" class="btn btn-secondary  btn-sm ">Dashboard</a>
+                <a href="/admin/logout/" class="btn btn-info btn-sm">logout</a>
+              </div>
             </div>
-        </div>
-    </header>
-    <main class="mx-5 row">
-        <div class="col">
-            <div class="mx-3 text-center">
+          </div>
+        </nav>
+      </header>
+      <main  style="margin-top: 50px;" class="mx-5 row">
+        <div  class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3">
                 <h3 class="my-4">Add a new brand:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
-                    <label for="brand" class="form-check-label">Brand Name</label>
+                    <label for="brand" class="form-check-label p-3">Brand Name</label>
                     <input type="text" name="brand" id="brand" class="form-control">
                     <input type="hidden" name="source" value="brand">
-                    <input type="submit" value="Add a brand" class="btn btn-primary my-3">
+                    <input type="submit" value="Add a brand" class="btn btn-info my-3 m-5">
                 </form>
             </div>
         </div>
-        <div class="col">
-            <div class="mx-3 text-center">
+        <div  class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3 ">
                 <h3 class="my-4">Add a new model:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
-                    <label for="brand" class="form-check-label">Add to Brand</label>
+                    <label for="brand" class="form-check-label p-3">Add to Brand</label>
                     <select name="brand" id="brand" class="custom-select">
                         {% for brand in brands %}
                         <option value="{{brand.id}}">{{brand.name}}</option>
                         {% endfor %}
                     </select>
-                    <label for="model" class="form-check-label">Model Name</label>
+                    <label for="model" class="form-check-label p-3">Model Name</label>
                     <input type="text" name="model" id="model" class="form-control">
                     <input type="hidden" name="source" value="model">
-                    <input type="submit" value="Add a model" class="btn btn-primary my-3">
+                    <input type="submit" value="Add a model" class="btn btn-info my-3 m-4">
                 </form>
             </div>
         </div>
-        <div class="col">
-            <div class="mx-3 text-center">
+        <div class="col bg-dark text-white m-3 shadow-lg p-3">
+            <div class="mx-3 text-center shadow-lg p-3">
                 <h3 class="my-4">Add a new Document type:</h3>
                 <form action="/admin/process_items/" method="POST" class="my-5">
                     {% csrf_token %}
-                    <label for="doc_type" class="form-check-label">Document Type</label>
+                    <label for="doc_type" class="form-check-label p-3">Document Type</label>
                     <input type="text" name="doc_type" id="doc_type" class="form-control">
                     <input type="hidden" name="source" value="doc_type">
-                    <input type="submit" value="Add Type" class="btn btn-primary my-3">
+                    <input type="submit" value="Add Type" class="btn btn-info my-3 m-5">
                 </form>
             </div>
         </div>
